@@ -1,18 +1,18 @@
-const passwordConfirmation = document.forms["notpassword2"];
+const passwordConfirmation = document.getElementById("password2")/*$('#password2')*/;
+
+passwordConfirmation.setCustomValidity("Password invalid");
+$('#createSubmit')[0].onclick = validatePassword;
 
 function validatePassword() {
 
-var uName = document.forms['#username'].value;
-var pWord = document.forms['#endregionnotpassword'].value;
-var pWord2 = document.forms['#notpassword2'].value;
+var uName = $('#username').val();
+var pWord = $('#password').val();
+var pWord2 = $('#password2').val();
 
-console.log("validatepassword");
-
-  if (pWord == null || pWord != pWord2) {
+  if (pWord == "" || pWord != pWord2) {
     passwordConfirmation.setCustomValidity("Password invalid");
   } else {
     passwordConfirmation.setCustomValidity("");
   }
 }
 
-document.getElementsByName("submit")[0].onclick = validatePassword;
