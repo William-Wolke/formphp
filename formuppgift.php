@@ -1,3 +1,7 @@
+<?php
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,7 +15,6 @@
 </head>
 <body>
     <form action="#" method="POST" name="createUser">
-        <fieldset>
         <legend>Skapa ett nytt konto</legend>
 
         <div class="form-group">
@@ -27,10 +30,8 @@
             <input type="password" name="notpassword2" id="password2" class="form-control" minlength="5" require>
         </div>
         <div class="form-group">
-        <input type="submit" name="submit" id="createSubmit"class="form-control btn btn-primary mb-3" value="Skapa konto">
+            <input type="submit" name="submit" id="createSubmit" class="form-control btn btn-primary mb-3" value="Skapa konto">
         </div>
-        
-        </fieldset>
     </form>
     <form action="#" method="POST" name="logginUser">
         <fieldset>
@@ -102,8 +103,7 @@
                                     VALUES ('$usernameform', '$passphrase')";
     
                         $dataQuery = mysqli_query($conn, $sqlData);
-                    }
-                        
+                    }     
                 }
 
                 else {
@@ -120,7 +120,7 @@
 
             $conn = mysqli_connect($servername, $username, $passwordDB, $dbname);
 
-            $sqlGetPass = "SELECT losenord FROM Users WHERE username='$logginUName'";
+            $sqlGetPass = "SELECT losenord, username FROM Users WHERE username='$logginUName'";
 
             $userPass = mysqli_query($conn, $sqlGetPass);
 
@@ -128,6 +128,8 @@
                 $tuple = mysqli_fetch_assoc($userPass);
 
                 if (password_verify($logginPWord, $tuple["losenord"])){
+                    $_SESSION["loggedIn"] = true;
+                    $_SESSION["username"] = $tuple["username"];
                     header('location: inloggad.php');
                 }
                 else{
