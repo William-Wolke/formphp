@@ -120,7 +120,7 @@
 
             $conn = mysqli_connect($servername, $username, $passwordDB, $dbname);
 
-            $sqlGetPass = "SELECT losenord, username FROM Users WHERE username='$logginUName'";
+            $sqlGetPass = "SELECT losenord, username, intresse FROM Users WHERE username='$logginUName'";
 
             $userPass = mysqli_query($conn, $sqlGetPass);
 
@@ -130,6 +130,7 @@
                 if (password_verify($logginPWord, $tuple["losenord"])){
                     $_SESSION["loggedIn"] = true;
                     $_SESSION["username"] = $tuple["username"];
+                    $_SESSION["interest"] = $tuple["intresse"];
                     header('location: inloggad.php');
                 }
                 else{
