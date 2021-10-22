@@ -19,15 +19,15 @@
 
         <div class="form-group">
             <label for="username">Username:</label>
-            <input type="text" name="username" id="username" class="form-control" minlengt="5" require>
+            <input type="text" name="username" id="username" class="form-control" minlength="4" required>
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" name="notpassword" id="password" class="form-control" minlength="5" require>
+            <input type="password" name="notpassword" id="password" class="form-control" minlength="5" required>
         </div>
         <div class="form-group">
             <label for="password2">Repeat password:</label>
-            <input type="password" name="notpassword2" id="password2" class="form-control" minlength="5" require>
+            <input type="password" name="notpassword2" id="password2" class="form-control" minlength="5" required>
         </div>
         <div class="form-group">
             <input type="submit" name="submit" id="createSubmit" class="form-control btn btn-primary mb-3" value="Skapa konto">
@@ -38,11 +38,11 @@
             <legend>Logga in</legend>
             <div class="form-group">
                 <label for="logginUName">Username</label>
-                <input type="text" name="logginUName" id="logginUName" class="form-control" minlength="5" require>
+                <input type="text" name="logginUName" id="logginUName" class="form-control" minlength="4" required>
             </div>
             <div class="form-group">
             <label for="logginPWord">Password</label>
-                <input type="password" name="logginPWord" id="logginPWord" class="form-control" minlength="5" require>
+                <input type="password" name="logginPWord" id="logginPWord" class="form-control" minlength="5" required>
                 </div>
             <div class="form-group">
                 <input type="submit" name="logginSubmit" class="form-control btn btn-primary mb-3" value="Logga in">
@@ -81,13 +81,11 @@
                 $sqlTB      = "CREATE TABLE IF NOT EXISTS Users (
                               id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
                               username VARCHAR(30) NOT NULL,
-                              losenord VARCHAR(200) NOT NULL
+                              losenord VARCHAR(200) NOT NULL,
+                              intresse VARCHAR(40) NOT NULL
                               )";
-                $tbQuery    = mysqli_query($conn, $sqlTB);
-
-                if ($tbQuery) {
-
-                    $dataQuery = 0;
+                if($mysqli_query($conn, $sqlTB))
+{
 
                     $sql_u =  "SELECT * FROM Users WHERE username='$usernameform'";
 
@@ -96,13 +94,18 @@
                     if (mysqli_num_rows($res_u) >= 1) {
                         echo "användarnamnet upptaget";
                     }
-                    else {
+                else {
                         $passphrase = password_hash($passphrase, PASSWORD_BCRYPT);
 
-                        $sqlData =  "INSERT INTO Users (username, losenord)
-                                    VALUES ('$usernameform', '$passphrase')";
+                        $sqlData =  "INSERT INTO Users (username, losenord, intresse)
+                                    VALUES ('$usernameform', '$passphrase' , '')";
     
-                        $dataQuery = mysqli_query($conn, $sqlData);
+                        if(mysqli_query($conn, $sqlData)){
+                            echo "lyckades";
+                        }
+                        else{
+                            echo "lyckades inte";
+                        }
                     }     
                 }
 

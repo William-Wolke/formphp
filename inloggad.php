@@ -41,27 +41,13 @@ if (!$_SESSION["loggedIn"]) {
                 <input type="submit" value="submit" name="chooseInterest" class="form-control btn btn-primary mb-3">
             </div>
     </form>
-    <div>
+    <div class="news">
         <?php
-            function printHeader($headerContent) {
-                echo "<h1>".$headerContent."</H1>";
-            }
+            //Behövde printa just här för att texten skulle komma här. 
+            include "./myfunction.php";
         ?>
-    </div>
-    <div>
-        <?php
-            function printPicture($picContent) {
-                echo "<h1>".$picContent."</H1>";
-            }
-        ?>
-    </div>
-    <div>
-        <?php
-            function printText($textContent) {
-                echo "<p>".$textContent."</p>";
-            }
-        ?>
-    </div>
+        </div>
+    
     <form action="#" method="POST" id="logoutContainer">
         <div class="form-group">
             <input type="submit" value="logout" name="logOut" class="form-control btn btn-primary mb-3">
@@ -69,61 +55,3 @@ if (!$_SESSION["loggedIn"]) {
     </form>
 </body>
 </html>
-
-<?php
-
-        $servername = "localhost";
-        $usernameDB = "root";
-        $passwordDB = "";
-        $dbname = "User";
-
-        
-
-        if ($_SESSION["interest"] != null) {
-            echo "du har intresse grattis".$_SESSION["interest"];
-
-            /*$ap1_url = 'pub_1866ec4393984dff679beb0cebe4231e94b2&language=en&category='.$_SESSION["interest"];
-
-            $json_data = file_get_contents($api_url);
-
-            $response_data = json_decode($json_data);
-
-            echo $response_data;*/
-        }
-        else{
-            echo "du har inte intresse :(";
-        }
-
-        if (isset($_POST["chooseInterest"])) {
-
-                $username = $_SESSION['username'];
-                $interest = $_POST["chosenInterest"];
-
-                $conn = mysqli_connect($servername, $usernameDB, $passwordDB, $dbname);
-
-                if (!$conn) {
-                    die("Connection failed: " . mysqli_connect_error());
-                }
-                else {
-                    echo "Connection created";
-                    
-                    $sqlInsertInterest = "UPDATE `Users` SET `intresse` = '$interest' WHERE `Users`.`username` = $username";
-
-                    $interestQuery = mysqli_query($conn, $sqlInsertInterest);
-                }
-
-                if ($interestQuery) {
-                    echo "updated";
-                }
-                else {
-                    echo "inte updated";
-                }
-            }
-        
-        if (isset($_POST["logOut"])) {
-            session_destroy();
-            header("location: formuppgift.php");
-        }
-
-        mysqli_close($conn);
-?>

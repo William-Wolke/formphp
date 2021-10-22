@@ -6,14 +6,26 @@ form {
     display: block;
     width: 55%;
     margin: auto;
-    background-color: white;
 }
 
 #logoutContainer {
     margin: 15em auto;
 }
 
+.news {
+    display: block;
+    width: 55%;
+    height: 100vh;
+    margin: auto;
+    border: solid black 1px;
+}
+
 h1{
     text-align: center;
     padding: 1.5em 0;
+}
+
+img {
+    max-width: 100%;
+    object-fit: contain;
 }
