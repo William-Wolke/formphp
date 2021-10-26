@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!$_SESSION["loggedIn"]) {
-    header("location: formuppgift.php");
+    header("location: index.php");
 }
 ?>
 

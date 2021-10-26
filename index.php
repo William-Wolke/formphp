@@ -84,8 +84,9 @@
                               losenord VARCHAR(200) NOT NULL,
                               intresse VARCHAR(40) NOT NULL
                               )";
-                if($mysqli_query($conn, $sqlTB))
-{
+                              
+                if(mysqli_query($conn, $sqlTB))
+                {
 
                     $sql_u =  "SELECT * FROM Users WHERE username='$usernameform'";
 
