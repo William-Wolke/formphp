@@ -23,11 +23,11 @@
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
-            <input type="password" name="notpassword" id="password" class="form-control" minlength="5" required>
+            <input type="password" name="password" id="password" class="form-control" minlength="5" required>
         </div>
         <div class="form-group">
             <label for="password2">Repeat password:</label>
-            <input type="password" name="notpassword2" id="password2" class="form-control" minlength="5" required>
+            <input type="password" name="confirmpassword" id="confirmPassword" class="form-control" minlength="5" required>
         </div>
         <div class="form-group">
             <input type="submit" name="submit" id="createSubmit" class="form-control btn btn-primary mb-3" value="Skapa konto">
@@ -53,15 +53,12 @@
         ini_set('display_errors', '1');
         error_reporting(E_ALL | E_STRICT);
 
-        $servername = "localhost";
-        $username = "root";
-        $passwordDB = "";
-        $dbname = "User";
+        include "./keys.php";
 
         if(isset($_POST['submit']))
         {
-            $passphrase     = $_POST['notpassword'];
-            $usernameform   = $_POST['username'];
+            $passphrase     = $_POST['password'];
+            $usernameform   = $_POST['confirmpassword'];
         
             $conn = mysqli_connect($servername, $username, $passwordDB);
 
@@ -69,26 +66,18 @@
                 die("Connection failed: " . mysqli_connect_error());
             }
             else {
-                echo "Connection created";
+                #echo "Connection created";
 
-                $sqlDB      = "CREATE DATABASE IF NOT EXISTS User";
                 $dbQuery    = mysqli_query($conn, $sqlDB);
 
                 if ($dbQuery) {
                     $conn = mysqli_connect($servername, $username, $passwordDB, $dbname);
                 }   
 
-                $sqlTB      = "CREATE TABLE IF NOT EXISTS Users (
-                              id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                              username VARCHAR(30) NOT NULL,
-                              losenord VARCHAR(200) NOT NULL,
-                              intresse VARCHAR(40) NOT NULL
-                              )";
+                
                               
                 if(mysqli_query($conn, $sqlTB))
                 {
-
-                    $sql_u =  "SELECT * FROM Users WHERE username='$usernameform'";
 
                     $res_u = mysqli_query($conn, $sql_u);
 
@@ -97,21 +86,18 @@
                     }
                 else {
                         $passphrase = password_hash($passphrase, PASSWORD_BCRYPT);
-
-                        $sqlData =  "INSERT INTO Users (username, losenord, intresse)
-                                    VALUES ('$usernameform', '$passphrase' , '')";
     
                         if(mysqli_query($conn, $sqlData)){
-                            echo "lyckades";
+                            #echo "lyckades";
                         }
                         else{
-                            echo "lyckades inte";
+                            #echo "lyckades inte";
                         }
                     }     
                 }
 
                 else {
-                    echo "fel tablequery";
+                    #echo "fel tablequery";
                 }
             }
             mysqli_close($conn);
@@ -122,9 +108,9 @@
             $logginUName = $_POST['logginUName'];
             $logginPWord = $_POST['logginPWord'];
 
-            $conn = mysqli_connect($servername, $username, $passwordDB, $dbname);
-
-            $sqlGetPass = "SELECT losenord, username, intresse FROM Users WHERE username='$logginUName'";
+            $conn = mysqli_connect("localhost", "root", "", "User");
+           
+            include "./keys.php";
 
             $userPass = mysqli_query($conn, $sqlGetPass);
 
@@ -141,6 +127,7 @@
                     echo "Felaktigt användarnamn eller lösenord.";
                 }
             }
+            mysqli_close($conn);
         }
     ?>
 

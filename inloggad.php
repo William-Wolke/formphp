@@ -22,7 +22,7 @@ if (!$_SESSION["loggedIn"]) {
         <h1>Grattis du är inloggad.</h1>
             <div class="form-group">
                 <label for="interest"> <?php echo"Hej ".$_SESSION["username"].", ";    ?>välj ditt intresse</label>
-                <input list="listInterest" name="chosenInterest" id="Interest" class="form-control">
+                <input list="listInterest" name="chosenInterest" id="Interest" class="form-control" placeholder="Intresse">
                 <datalist id="listInterest">
                     <option value="business"></option>
                     <option value="entertainment"></option>
@@ -44,6 +44,7 @@ if (!$_SESSION["loggedIn"]) {
     <div class="news">
         <?php
             //Behövde printa just här för att texten skulle komma här. 
+            include "./keys.php";
             include "./myfunction.php";
         ?>
         </div>
