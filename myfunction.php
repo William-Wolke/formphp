@@ -35,9 +35,15 @@
                 $articleNum = rand(0, 5);
                 $response_data = json_decode($json_data,true) or exit("Your code doesn't work");
                 
-                echo "<h1>".$response_data['results'][$articleNum]['title']."</h1>";
-                echo "<img class='articleImg' src=".$response_data['results'][$articleNum]['image_url']."></img>";
-                echo "<p>".$response_data['results'][$articleNum]['description']."</p>";
+                echo "<h1>".
+                        $response_data['results'][$articleNum]['title'].
+                     "</h1>";
+                echo "<img class='articleImg' src=".
+                        $response_data['results'][$articleNum]['image_url'].">
+                     </img>";
+                echo "<p>".
+                        $response_data['results'][$articleNum]['description'].
+                     "</p>";
 
             } catch (\Throwable $th) {
                 echo $th->getMessage();

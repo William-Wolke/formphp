@@ -1,5 +1,7 @@
 <?php
     session_start();
+    $_SESSION['username'] = "";
+    $_SESSION["interest"] = "";
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +62,9 @@
             $passphrase     = $_POST['password'];
             $usernameform   = $_POST['confirmpassword'];
         
-            $conn = mysqli_connect($servername, $username, $passwordDB);
+            $conn = mysqli_connect($servername, $usernameDB, $passwordDB);
+
+            mysql_query($conn, "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('')");
 
             if (!$conn) {
                 die("Connection failed: " . mysqli_connect_error());
@@ -71,13 +75,14 @@
                 $dbQuery    = mysqli_query($conn, $sqlDB);
 
                 if ($dbQuery) {
-                    $conn = mysqli_connect($servername, $username, $passwordDB, $dbname);
+                    echo $servername . $usernameDB . $passwordDB . $dbname;
+                    mysqli_close($conn);
+                    $conn = mysqli_connect($servername, $usernameDB, $passwordDB, $dbname);
                 }   
 
-                
-                              
                 if(mysqli_query($conn, $sqlTB))
                 {
+                    include "./keys.php";
 
                     $res_u = mysqli_query($conn, $sql_u);
 
@@ -108,7 +113,7 @@
             $logginUName = $_POST['logginUName'];
             $logginPWord = $_POST['logginPWord'];
 
-            $conn = mysqli_connect("localhost", "root", "", "User");
+            $conn = mysqli_connect($servername, $usernameDB, $passwordDB, $dbname);
            
             include "./keys.php";
 

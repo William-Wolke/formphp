@@ -1,19 +1,19 @@
 <?php
 
-$servername     = "localhost";
-$usernameDB     = "root";
-$passwordDB     = "";
-$dbname         = "User";
-$conn;
-$interest       = "";
-$usernameform   = "";
-$logginUName    = "";
+$servername         = "localhost";
+$usernameDB         = "root";
+$passwordDB         = "root";
+$dbname             = "User";
+$conn               = false;
+$interest           = "";
+$usernameform       = "";
+$logginUName        = "";
 
-$username       = $_SESSION['username'];
+$username           = $_SESSION['username'];
 
-$api_url        = 'https://newsdata.io/api/1/news?apikey=pub_1866ec4393984dff679beb0cebe4231e94b2&language=en&category='.$_SESSION["interest"];
+$api_url            = 'https://newsdata.io/api/1/news?apikey=pub_1866ec4393984dff679beb0cebe4231e94b2&language=en&category='.$_SESSION["interest"];
 
-$sqlInsertInterest = "UPDATE Users SET intresse = '$interest' WHERE username = '$username'";
+$sqlInsertInterest  = "UPDATE Users SET intresse = '$interest' WHERE username = '$username'";
 
 $sqlDB              = "CREATE DATABASE IF NOT EXISTS User";
 
